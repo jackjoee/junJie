@@ -5,7 +5,7 @@ public:
         int y=nums.size()-1;
         int leftSum=nums[i];
         int rightSum=nums[y];
-        for(int m=0;m<(nums.size()/2);m++)
+        for(int m=0;m<(nums.size()/2)+1;m++)
         {
             if(leftSum>rightSum)
             {
