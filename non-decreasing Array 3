@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool checkPossibility(vector<int>& nums) {
+        int index=0;
+        if(nums.size()==2)
+        {
+            return true;
+        }
+        else
+            while(index<=nums.size())
+            {
+                if(nums[index]>nums[index+1]&&nums[index+1]>nums[index+2])
+                    return false;
+                if(nums[index]>nums[index+1])
+                {
+                    if(nums[index]>nums[index+2])
+                    {
+                        nums[index]=nums[index+1];
+                        return true;
+                    }
+                    else if(nums[index]<=nums[index+2])
+                    {
+                        nums[index+1]=nums[index+2];
+                        return true;
+                    }
+                }
+                index++;
+            }
+        return true;
+    }
+};
+// runtime error by [1,2,3,4,5,5,4,3,2,1]
