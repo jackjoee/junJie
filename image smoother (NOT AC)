@@ -1,0 +1,72 @@
+class Solution {
+public:
+    vector<vector<int>> imageSmoother(vector<vector<int>>& M) {
+        vector<vector<int>> N = M;
+        int M1;
+        int M2;
+        int M3;
+        if(M.size() == 1)
+        {
+            if(M[0].size() == 1)
+                M[0][0] = N[0][0];
+            else if(M[0].size() == 2)
+            {
+                M[0][0] = (N[0][0] + N[0][1]) / 2;
+                M[0][1] = (N[0][0] + N[0][1]) / 2;
+            }
+            else
+            {
+                M[0][M[0].size() - 1] = (N[0][N[0].size() - 1] + N[0][N[0].size() - 2]) / 2;
+                M[0][0] = (N[0][0] + N[0][1]) / 2;
+                for(int i = 1 ; i < M[i].size() ; i++)
+                {
+                    M[0][i] = (N[0][i - 1] + N[0][i] + N[0][i + 1]) / 3;
+                }
+            }
+        }
+        else
+            for(int i = 0 ; i < M.size() ; i++)
+                for(int j = 0 ; j < M[i].size() ; j++)
+                {
+                    if(i == 0)
+                    {
+                        if(j == 0)
+                            M[i][j] = (N[i][j] + N[i][j + 1] + N[i + 1][j] + N[i + 1][j + 1]) / 4;
+                        else if(j == M[i].size() - 1)
+                            M[i][j] = (N[i][j] + N[i][j - 1] + N[i + 1][j] + N[i + 1][j - 1]) / 4;
+                        else
+                        {
+                            M[i][j] = (N[i][j - 1] + N[i + 1][j - 1] + N[i][j] + N[i][j - 1] + N[i + 1][j] + N[i + 1][j - 1]) / 6;
+                        }
+                    }
+
+                    else if(i == M.size() - 1)
+                    {
+                        if(j == 0)
+                            M[i][j] = (N[i][j] + N[i][j + 1] + N[i - 1][j] + N[i - 1][j + 1]) / 4;
+                        else if(j == M[i].size() - 1)
+                            M[i][j] = (N[i][j] + N[i][j - 1] + N[i - 1][j] + N[i - 1][j - 1]) / 4;
+                        else
+                        {
+                            M[i][j] = (N[i][j - 1] + N[i - 1][j - 1] + N[i][j] + N[i][j - 1] + N[i - 1][j] + N[i - 1][j - 1]) / 6;
+                        }
+                    }
+
+                    else
+                    {
+                        if(j == 0)
+                            M[i][j] = (N[i - 1][j] + N[i - 1][j + 1] + N[i][j] + N[i][j + 1] + N[i - 1][j] + N[i - 1][j + 1]) / 6;
+                        else if(j == M[i].size() - 1)
+                            M[i][j] = (N[i - 1][j] + N[i - 1][j - 1] + N[i][j] + N[i][j - 1] + N[i - 1][j] + N[i - 1][j - 1]) / 6;
+                        else
+                        {
+                            M1 = (N[i - 1][j - 1] + N[i - 1][j] + N[i - 1][j + 1]);
+                            M2 = (N[i][j - 1] + N[i][j] + N[i][j + 1]);
+                            M3 = (N[i + 1][j - 1] + N[i + 1][j] + N[i + 1][j + 1]);
+                            M[i][j] = (M1 + M2 + M3) / 9;
+                        }
+                    }
+                }
+     return M;
+    }
+};
