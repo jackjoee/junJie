@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+     	if (nums.empty()) return{ -1, -1 };
+
+	auto iter1 = lower_bound(nums.begin(), nums.end(), target);
+	auto iter2 = upper_bound(nums.begin(), nums.end(), target);
+
+	if (iter1 == nums.end()) return{ -1, -1 };
+
+	if ((*iter1) != target) return{ -1, -1 };
+	vector<int> tmp(2, 0);
+	tmp[0] = iter1 - nums.begin();
+
+	--iter2;
+	tmp[1] = iter2 - nums.begin();
+	return tmp;
+    }
+};
