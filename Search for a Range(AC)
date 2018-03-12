@@ -1,0 +1,93 @@
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        vector<int> position;
+        int pos1;
+        int right = nums.size();
+        int length = nums.size();
+        int left = 0;
+        int flag = 1;
+        int pos2;
+        
+        if(nums.size() == 0)
+        {
+            position.push_back(-1);
+            position.push_back(-1);
+        }
+        
+        else
+        {
+            while(left < right)
+            {
+                int mid = (left + right) / 2;
+                //cout << mid << endl;
+                if(nums[mid] > target)
+                {
+                    //cout << mid << endl;
+                    right = mid;
+                    //cout << right << endl;
+                }
+                if(nums[mid] < target)
+                {
+                    //cout << mid << endl;
+                    left = (mid) + 1;
+                    //cout << left << endl;
+                }
+                if(nums[mid] == target)
+                {
+                    position.push_back(mid);
+                    break;
+                }
+            }
+            
+            if(position.size() == 0)
+            {
+                position.push_back(-1);
+                position.push_back(-1);
+                return position;
+            }
+            
+            pos1 = position[0];
+            pos2 = pos1;
+            
+            position.clear();
+
+            //cout << nums[pos + 1] << endl;
+
+            while(flag)
+            {
+                if(nums[pos2 - 1] == target && pos2 > 0)
+                {
+                    //position.push_back(pos2 - 1)
+                    pos2 -= 1;
+                }
+                else
+                {
+                    flag = 0;
+                    position.push_back(pos2);   
+                }
+            }  
+
+            flag = 1;
+            pos2 = pos1;
+            
+            while(flag)
+            {
+                if(nums[pos2 + 1] == target && pos2 < length - 1)
+                {
+                    //position.push_back(pos2 + 1);
+                    pos2 += 1;
+                }
+                else
+                {
+                    flag = 0;
+                    position.push_back(pos2);
+                }  
+            }
+            return position;
+        }
+       return position;
+    }
+};
+
+//12ms
